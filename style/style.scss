@@ -21,6 +21,18 @@ $shadow-color: rgb(199, 199, 199);
     height: 70px;
     box-shadow: -2px 2px 5px 0px $shadow-color;
 }
+html {
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $light-blue;
+    height: 25%;
+}
 
 body {
     width: 100vw;
@@ -34,6 +46,70 @@ body {
         "testmonials"
         "showcase"
         "contact";
+    overflow-x: hidden;
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 0.3;
+        z-index: 9;
+    }
+    to {
+        opacity: 0;
+        z-index: -1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+        z-index: -1;
+    }
+    to {
+        opacity: 0.3;
+        z-index: 9;
+    }
+}
+
+.floating-menu {
+    @include centering();
+    flex-direction: column;
+    padding: 50px;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100vh;
+    width: 400px;
+    background-color: white;
+    z-index: 20;
+    transform: translateX(-400px);
+    transition: transform 0.3s ease;
+    
+
+        a {
+            width: 100%;
+            padding: 30px;
+            font-size: calc(1.5vw + 0.5rem);
+            text-align: left;
+            text-decoration: none;
+            margin: 20px;
+            transition: transform 0.3s ease;
+        }
+        a:hover {
+            transform: translateX(20px);
+            color: $dark-blue;
+        }
+}
+
+.closer {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(20, 20, 20);
+    z-index: -1;
+    opacity: 0;
 }
 
 header {
@@ -48,7 +124,7 @@ header {
     grid-template-rows: 100%;
     grid-template-areas: 
         "left right";
-    z-index: 10;  
+    z-index: 30;  
     transition: height 0.3s ease;
 
         .left-hand-content {
@@ -59,11 +135,13 @@ header {
             grid-area: left;
             
                 svg {
+                    position: relative;
                     width: 25px;
                     height: 25px;
                     filL: $light-blue; 
                     margin-right: 20px;
                     cursor: pointer;
+                    transition: transform 0.5s ease;
                 }
                 h2 {
                     font-size: calc(1.5vw + 0.5rem);
@@ -79,14 +157,16 @@ header {
             
                 .item {
                     @include centering();
-                    width: 150px;
-                    height: 100%;
+                    min-width: 150px;
+                    max-height: 100%;
                     background-color: white;
                     cursor: pointer;
 
                         svg {
-                            width: 20px;
-                            height: 20px;
+                            min-width: 20px;
+                            min-height: 20px;
+                            max-width: 25px;
+                            max-height: 25px;
                             fill: $light-blue;
                             font-weight: 900;
                             margin-right: 10px;
@@ -103,15 +183,17 @@ header {
                             }
                         }
 
-                        span {
-                            font-size: calc(0.7vw + 0.5rem);
+                        a {
+                            font-size: calc(0.7vw + 0.4rem);
                             font-weight: bold;
                             color: $light-blue;
                             transition: transform 0.5s ease; 
+                            text-decoration: none;
                         }
                 }
-                .item:hover span {
+                .item:hover a {
                     transform: translateX(5px);
+                    color: $dark-blue;
                 }
         }
 }
@@ -190,6 +272,7 @@ main {
         "container";
 
             h2 {
+                font-size: calc(1vw, 0.5rem);
                 grid-area: title;
                 height: 50px;
                 justify-self: center;
@@ -200,7 +283,7 @@ main {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 grid-template-rows: repeat(2, 1fr);
-                grid-column-gap: 15px;
+                grid-column-gap: 20px;
                 grid-row-gap: 30px;
                 margin-bottom: 100px;
 
@@ -261,41 +344,45 @@ main {
     padding: 0px 100px;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 50px auto 100px;
+    grid-template-rows: 50px 400px 100px 50px;
     grid-template-areas: 
         'title'
         'reviews'
         'container';
         
         h2 {
+            font-size: calc(1vw, 0.5rem);
             background-color: white;
             grid-area: title;
             height: 50px;
             justify-self: center;
         }
-        .swiper-container {
-            background-color: white;
+        .slider {
             grid-area: reviews;
-            width: 100%;
-            padding: 100px 0px;
+
+            .swiper-container {
+                width: 100%;
+                height: 400px;
 
                 .swiper-wrapper {
+                    align-items: center;
 
                     .swiper-slide {
                         @include centering();
                         justify-content: flex-start;
                         flex-direction: column;
-                        min-width: 100px;
-                        min-height: 300px;
+                        max-width: 300px;    
+                        max-height: 300px;    
                         background-color: white;
                         transition: transform 0.4s ease;
                         border-radius: 8px;
                         box-shadow: 0px 0px 4px 0px $shadow-color;
+                        background-color: white;
 
                             .client-image {
                                 @include centering();
-                                min-height: 200px;
-                                min-width: 100%;
+                                height: 200px;
+                                width: 100%;
                                 background-color: white;
                                 border-radius: 8px;
 
@@ -345,43 +432,49 @@ main {
                     }
 
                     .swiper-slide-active {
-                        transform: scale(1.2);
+                        transform: scale(1.15);
                     }
                 }
+                .swiper-pagination {
+                    bottom: 0px;
+                }
+            }    
         }
         .button-container {
             @include centering();
             background-color: white;
             grid-area: container;
 
-                button {
-                    position: relative; 
-                    min-height: 30px;
-                    background-color: transparent;
-                    color: $light-blue;
-                    border: none;
-                    border-radius: 5px;
-                    outline: none;
-                    cursor: pointer;
-                    font-weight: bold;
-                    font-size: calc(0.7vw + 0.5rem);
-                    margin: 0px 20px;
-                    transition: transform 0.3s ease;
-                }
-
-                button::after {
-                    content: '';
-                    position: absolute;
-                    bottom: 0px;
-                    left: 0px;
-                    width: 100%;
-                    height: 2px;
-                    background-color: $light-blue;
-                }
-
-                button:hover {
-                    transform: scale(1.05);
-                    color: $dark-blue;
+                a {
+                    button {
+                        position: relative; 
+                        min-height: 30px;
+                        background-color: transparent;
+                        color: $light-blue;
+                        border: none;
+                        border-radius: 5px;
+                        outline: none;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: calc(0.7vw + 0.5rem);
+                        margin: 0px 20px;
+                        transition: transform 0.3s ease;
+                    }
+    
+                    button::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0px;
+                        left: 0px;
+                        width: 100%;
+                        height: 2px;
+                        background-color: $light-blue;
+                    }
+    
+                    button:hover {
+                        transform: scale(1.05);
+                        color: $dark-blue;
+                    }
                 }
         }
 
@@ -407,6 +500,7 @@ main {
         "gallery";
 
         h2 {
+            font-size: calc(1vw, 0.5rem);
             grid-area: heading;
             justify-self: center;
             margin-top: 50px;
@@ -414,8 +508,8 @@ main {
         .gallery {
             grid-area: gallery;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, auto);
+            grid-template-rows: repeat(3, auto);
             grid-gap: 20px;
             padding: 0px 100px;
             margin-bottom: 100px;
@@ -425,13 +519,12 @@ main {
                     overflow: hidden;
                     border-radius: 8px;
 
-                    
-                    img {
-                        border-radius: 8px;
-                        max-width: 100%;
-                        max-height: 100%;
-                        transition: transform 0.3s ease;
-                    }
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 8px;
+                            transition: transform 0.3s ease;
+                        }
                 }
                 .showcase-container:hover img {
                     transform: scale(1.3);
@@ -461,16 +554,21 @@ main {
     padding: 0px 100px;    
 
         h2 {
+            font-size: calc(1vw, 0.5rem);
             grid-area: title;
             justify-self: center;
             margin: 50px 0px;
         }
         .map-container {
+            @include centering();
+            min-width: 100%;
             grid-area: map;
 
-                img {
-                    max-width: 100%;
-                    max-height: 100%;
+                a {
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
         }
         .contact-info {
@@ -488,28 +586,31 @@ main {
                     flex-direction: column;
                     align-items: flex-start;
                     justify-content: flex-start;    
-                    padding: 20px;
+                    padding: 20px 0px;
                     grid-area: contact;
                     background-color: white;
 
-                        button {
-                            min-width: 150px;
-                            min-height: 60px;
-                            background-color: $light-blue;
-                            color: white;
-                            border: none;
-                            border-radius: 5px;
-                            outline: none;
-                            cursor: pointer;
-                            font-weight: bold;
-                            font-size: calc(0.5vw + 0.5rem);
-                            margin-bottom: 20px;  
-                            margin-top: 20px;  
-                            transition: transform 0.2s ease;
-                        }
-                
-                        button:hover {
-                            transform: scale(1.05);
+                        a {
+                            button {
+                                min-width: 150px;
+                                min-height: 60px;
+                                background-color: $light-blue;
+                                color: white;
+                                border: none;
+                                border-radius: 5px;
+                                outline: none;
+                                cursor: pointer;
+                                font-weight: bold;
+                                font-size: calc(0.5vw + 0.5rem);
+                                margin-bottom: 20px;  
+                                margin-top: 20px;  
+                                transition: transform 0.2s ease;
+                                padding: 20px;
+                            }
+                    
+                            button:hover {
+                                transform: scale(1.05);
+                            }
                         }
 
                         .phone-num {
@@ -539,29 +640,31 @@ main {
                     flex-direction: column;
                     align-items: flex-start;
                     justify-content: flex-start;    
-                    padding: 20px;
+                    padding: 20px 0px;
                     grid-area: address;
                     background-color: white;
                     
-
-                        button {
-                            min-width: 150px;
-                            min-height: 60px;
-                            background-color: $light-blue;
-                            color: white;
-                            border: none;
-                            border-radius: 5px;
-                            outline: none;
-                            cursor: pointer;
-                            font-weight: bold;
-                            font-size: calc(0.5vw + 0.5rem);
-                            margin-bottom: 20px;  
-                            margin-top: 20px;  
-                            transition: transform 0.2s ease;
-                        }
-                
-                        button:hover {
-                            transform: scale(1.05);
+                        a {
+                            button {
+                                min-width: 150px;
+                                min-height: 60px;
+                                background-color: $light-blue;
+                                color: white;
+                                border: none;
+                                border-radius: 5px;
+                                outline: none;
+                                cursor: pointer;
+                                font-weight: bold;
+                                font-size: calc(0.5vw + 0.5rem);
+                                margin-bottom: 20px;  
+                                margin-top: 20px;  
+                                transition: transform 0.2s ease;
+                                padding: 20px;
+                            }
+                    
+                            button:hover {
+                                transform: scale(1.05);
+                            }
                         }
 
                         .first-address, .second-address {
@@ -591,7 +694,7 @@ main {
                     flex-direction: column;
                     align-items: flex-start;
                     justify-content: flex-start;    
-                    padding: 20px;
+                    padding: 20px 0px;
                     grid-area: hours;
                     background-color: white;
                     
@@ -601,10 +704,126 @@ main {
                         }
 
                         p {
-                            font-size: calc(0.8vw + 0.5rem);
+                            font-size: calc(0.8vw + 0.4rem);
                             letter-spacing: 1px;
                             margin-bottom: 20px;
                         }
                 }
         }
+}
+
+//media queries
+//1312 and more
+@media all and (min-width: 1312px) {
+    //    
+}
+
+@media all and (min-width: 689px) and (max-width: 992px){
+    .floating-menu {
+        width: 350px;
+    }
+    header {
+        grid-template-columns: 100%;
+
+        .right-hand-content {
+            display: none;
+        }
+        .left-hand-content {
+            justify-self: center;
+        }
+    }
+    .updates .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+    .showcase .gallery {
+        grid-template-columns: repeat(2, auto);
+        grid-template-rows: repeat(4, auto);
+    }
+    .contact-us .contact-info {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: 
+                "contact address"
+                "hours hours";
+
+                .contact-section {
+                    grid-area: contact;
+                }
+                .address-section {
+                    grid-area: address;
+                }
+                .hours-section {
+                    grid-area: hours;
+                }    
+    }
+}
+
+@media all and (max-width: 688px) {
+    .floating-menu {
+        padding-left: 20px;
+        width: 200px;
+        align-items: flex-end;
+    }
+    header {
+        padding: 0px 10px;
+        grid-template-columns: 100%;  
+
+        .right-hand-content {
+            display: none;
+        }
+        .left-hand-content {
+            justify-self: center;
+        }
+    }
+    main {
+        padding: 0px 25px;
+            
+            button {
+                min-width: 180px;
+                min-height: 50px;
+            }
+    }
+    .updates {
+        padding: 0px 25px;
+    
+            .cards-container {
+                grid-template-columns: 100%;
+                grid-template-rows: repeat(6, 1fr);
+            } 
+    }
+    .testmonials {
+        padding: 0px 25px;
+
+        .slider .swiper-container .swiper-wrapper .swiper-slide-active {
+            transform: scale(1);
+        }
+    }
+    .showcase .gallery {
+        padding: 25px;
+        grid-template-columns: repeat(1, auto);
+        grid-template-rows: repeat(5, auto);
+    }
+    .contact-us {
+        padding: 0px 25px;
+
+        .contact-info {
+            grid-template-columns: 100%;
+            grid-template-rows: 1fr 1.5fr 1.3fr;
+            grid-template-areas: 
+                    "contact"
+                    "address"
+                    "hours";
+    
+                    .contact-section {
+                        grid-area: contact;
+                    }
+                    .address-section {
+                        grid-area: address;
+                    }
+                    .hours-section {
+                        grid-area: hours;
+                    }    
+        }
+    }
 }
