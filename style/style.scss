@@ -1,0 +1,610 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+@mixin centering {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+$light-blue: #5f9bce;
+$dark-blue: #1967d2;
+$shadow-color: rgb(199, 199, 199);
+
+.header-sticky {
+    height: 70px;
+    box-shadow: -2px 2px 5px 0px $shadow-color;
+}
+
+body {
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 90px repeat(5, auto);
+    grid-template-areas: 
+        "header"
+        "main"
+        "updates"
+        "testmonials"
+        "showcase"
+        "contact";
+}
+
+header {
+    position: sticky;
+    height: 100px;
+    background-color: white;
+    top: 0px;
+    padding: 0px 100px;
+    grid-area: header;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 100%;
+    grid-template-areas: 
+        "left right";
+    z-index: 10;  
+    transition: height 0.3s ease;
+
+        .left-hand-content {
+            @include centering();
+            justify-content: flex-start;
+            height: 100%;
+            background-color: white;
+            grid-area: left;
+            
+                svg {
+                    width: 25px;
+                    height: 25px;
+                    filL: $light-blue; 
+                    margin-right: 20px;
+                    cursor: pointer;
+                }
+                h2 {
+                    font-size: calc(1.5vw + 0.5rem);
+                    color: $light-blue;
+                    cursor: pointer;
+                }
+        }
+        .right-hand-content {
+            @include centering();
+            justify-content: flex-end;
+            grid-area: right;
+            background-color: white;
+            
+                .item {
+                    @include centering();
+                    width: 150px;
+                    height: 100%;
+                    background-color: white;
+                    cursor: pointer;
+
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                            fill: $light-blue;
+                            font-weight: 900;
+                            margin-right: 10px;
+                        }
+
+                        #docs {
+                            fill: none;
+                            stroke: $light-blue;
+                        }
+
+                        #pho {
+                            path {
+                                color: $light-blue;
+                            }
+                        }
+
+                        span {
+                            font-size: calc(0.7vw + 0.5rem);
+                            font-weight: bold;
+                            color: $light-blue;
+                            transition: transform 0.5s ease; 
+                        }
+                }
+                .item:hover span {
+                    transform: translateX(5px);
+                }
+        }
+}
+
+main {
+    @include centering();
+    justify-content: flex-start;
+    flex-direction: column;
+    grid-area: main;
+    background-color: white;
+    padding: 0px 100px;
+
+        h1 {
+            font-size: calc(4vw + 0.5rem);
+            text-align: center;
+            color: $light-blue;
+            margin-top: 100px;  
+            margin-bottom: 50px;
+        }
+        p {
+            font-size: calc(0.7vw + 0.5rem);
+            text-align: center;
+            color: $dark-blue;
+        }
+        button {
+            min-width: 230px;
+            min-height: 70px;
+            background-color: $light-blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: calc(0.7vw + 0.5rem);
+            margin-bottom: 50px;  
+            margin-top: 50px;  
+            transition: transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .img-container {
+            @include centering();
+            width: 100%;
+            background-color: white;
+            margin-bottom: 50px;
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+        }
+
+        .after-line {
+            width: 15%;
+            height: 3px;
+            background-color: $shadow-color;
+            margin: 50px 0px;
+        }
+}
+
+.updates {
+    position: relative;
+    grid-area: updates;
+    background-color: white;
+    display: grid;
+    padding: 0px 100px;
+    grid-template-columns: 100%;
+    grid-template-rows: 1fr auto;
+    grid-gap: 20px;
+    grid-template-areas: 
+        "title"
+        "container";
+
+            h2 {
+                grid-area: title;
+                height: 50px;
+                justify-self: center;
+            }
+
+            .cards-container {
+                grid-area: container;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                grid-column-gap: 15px;
+                grid-row-gap: 30px;
+                margin-bottom: 100px;
+
+                    .update-card {
+                        @include centering();
+                        align-items: flex-start;
+                        justify-content: flex-start;
+                        min-height: 300px;
+                        flex-direction: column;
+                        background-color: white;
+                        border-radius: 5px;
+                        box-shadow: 0px 0px 4px 0px $shadow-color;
+                        transition: transform 0.5s ease;
+                        cursor: pointer;
+
+                            img {
+                                display: block;
+                                width: 100%;
+                                min-height: 70%;
+                                border-radius: 5px 5px 0px 0px;
+                            }
+
+                            p {
+                                margin: 10px;
+                                color: $light-blue;
+                                font-size: calc(0.9vw + 0.5rem);
+                                font-weight: bold;
+                                min-height: 30px;
+                            }
+                            .update-date {
+                                position: relative;
+                                bottom: 0px;
+                                font-size: calc(0.6vw + 0.5rem);
+                                color: $dark-blue;
+                                min-height: 20px;
+                            }
+                    }
+
+                    .update-card:hover {
+                        transform: translateY(-10px);
+                    }
+            }
+            
+            .after-line {
+                position: absolute;
+                bottom: 0px;
+                width: 15%;
+                height: 3px;
+                background-color: $shadow-color;
+                margin: 50px 0px;
+                justify-self: center;
+            }
+}
+.testmonials {
+    position: relative;
+    grid-area: testmonials;
+    background-color: white;
+    padding: 0px 100px;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 50px auto 100px;
+    grid-template-areas: 
+        'title'
+        'reviews'
+        'container';
+        
+        h2 {
+            background-color: white;
+            grid-area: title;
+            height: 50px;
+            justify-self: center;
+        }
+        .swiper-container {
+            background-color: white;
+            grid-area: reviews;
+            width: 100%;
+            padding: 100px 0px;
+
+                .swiper-wrapper {
+
+                    .swiper-slide {
+                        @include centering();
+                        justify-content: flex-start;
+                        flex-direction: column;
+                        min-width: 100px;
+                        min-height: 300px;
+                        background-color: white;
+                        transition: transform 0.4s ease;
+                        border-radius: 8px;
+                        box-shadow: 0px 0px 4px 0px $shadow-color;
+
+                            .client-image {
+                                @include centering();
+                                min-height: 200px;
+                                min-width: 100%;
+                                background-color: white;
+                                border-radius: 8px;
+
+                                    img {
+                                        max-width: 100%;
+                                        max-height: 100%;
+                                        border-radius: 50%;
+                                    }
+                            }
+                            .review-text {
+                                @include centering();
+                                justify-content: flex-start;
+                                width: 100%;
+                                color: $light-blue;
+                                font-size: calc(0.8vw + 0.5rem); 
+                                padding: 0px 10px; 
+                                margin: 5px 0px;
+                            }
+                            .client-name {
+                                @include centering();
+                                justify-content: flex-start;
+                                width: 100%;
+                                color: $light-blue;
+                                font-size: calc(0.6vw + 0.5rem); 
+                                padding: 0px 10px;
+                                margin: 5px 0px;
+                            }
+                            .star-rating {
+                                @include centering();
+                                width: 100%;
+                                font-size: calc(0.4vw + 0.5rem);
+                                justify-content: space-between;
+                                padding: 0px 10px;
+
+                                    .stars {
+                                        @include centering();
+                                            svg {
+                                                fill: orange;
+                                                width: 20px;
+                                                height: 20px;
+                                                margin: 0px;
+                                            }
+                                    }
+
+                                    
+                            }
+                    }
+
+                    .swiper-slide-active {
+                        transform: scale(1.2);
+                    }
+                }
+        }
+        .button-container {
+            @include centering();
+            background-color: white;
+            grid-area: container;
+
+                button {
+                    position: relative; 
+                    min-height: 30px;
+                    background-color: transparent;
+                    color: $light-blue;
+                    border: none;
+                    border-radius: 5px;
+                    outline: none;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: calc(0.7vw + 0.5rem);
+                    margin: 0px 20px;
+                    transition: transform 0.3s ease;
+                }
+
+                button::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0px;
+                    left: 0px;
+                    width: 100%;
+                    height: 2px;
+                    background-color: $light-blue;
+                }
+
+                button:hover {
+                    transform: scale(1.05);
+                    color: $dark-blue;
+                }
+        }
+
+        .after-line {
+            position: absolute;
+            bottom: -50px;
+            width: 15%;
+            height: 3px;
+            background-color: $shadow-color;
+            margin: 50px 0px;
+            justify-self: center;
+        }
+}
+.showcase {
+    position: relative;
+    grid-area: showcase;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px auto;
+    grid-template-areas: 
+        "heading"
+        "gallery";
+
+        h2 {
+            grid-area: heading;
+            justify-self: center;
+            margin-top: 50px;
+        }
+        .gallery {
+            grid-area: gallery;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            grid-gap: 20px;
+            padding: 0px 100px;
+            margin-bottom: 100px;
+
+                .showcase-container {
+                    @include centering();
+                    overflow: hidden;
+                    border-radius: 8px;
+
+                    
+                    img {
+                        border-radius: 8px;
+                        max-width: 100%;
+                        max-height: 100%;
+                        transition: transform 0.3s ease;
+                    }
+                }
+                .showcase-container:hover img {
+                    transform: scale(1.3);
+                }
+        }
+        
+        .after-line {
+            position: absolute;
+            bottom: -50px;
+            width: 15%;
+            height: 3px;
+            background-color: $shadow-color;
+            margin: 50px 0px;
+            justify-self: center;
+        }
+}
+.contact-us {
+    grid-area: contact;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px auto auto;
+    grid-template-areas: 
+        "title"
+        "map"
+        "contact";
+    padding: 0px 100px;    
+
+        h2 {
+            grid-area: title;
+            justify-self: center;
+            margin: 50px 0px;
+        }
+        .map-container {
+            grid-area: map;
+
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+        }
+        .contact-info {
+            grid-area: contact;
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 2fr;
+            grid-template-rows: 100%;
+            grid-template-areas: 
+                "contact address hours";
+            margin-bottom: 100px;    
+
+                .contact-section {
+                    @include centering();
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;    
+                    padding: 20px;
+                    grid-area: contact;
+                    background-color: white;
+
+                        button {
+                            min-width: 150px;
+                            min-height: 60px;
+                            background-color: $light-blue;
+                            color: white;
+                            border: none;
+                            border-radius: 5px;
+                            outline: none;
+                            cursor: pointer;
+                            font-weight: bold;
+                            font-size: calc(0.5vw + 0.5rem);
+                            margin-bottom: 20px;  
+                            margin-top: 20px;  
+                            transition: transform 0.2s ease;
+                        }
+                
+                        button:hover {
+                            transform: scale(1.05);
+                        }
+
+                        .phone-num {
+                            @include centering();
+
+                                span {
+                                    font-size: calc(0.8vw + 0.5rem);
+                                    letter-spacing: 1px;
+                                    font-family: sans-serif;
+                                }
+
+                                svg {
+                                    width: 20px;
+                                    height: 20px;
+                                    transform: translateY(-1px);
+                                    margin-right: 5px;
+                                    
+                                        path {
+                                            color: $light-blue;
+                                        }
+                                }
+                        }
+                        
+                }
+                .address-section {
+                    @include centering();
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;    
+                    padding: 20px;
+                    grid-area: address;
+                    background-color: white;
+                    
+
+                        button {
+                            min-width: 150px;
+                            min-height: 60px;
+                            background-color: $light-blue;
+                            color: white;
+                            border: none;
+                            border-radius: 5px;
+                            outline: none;
+                            cursor: pointer;
+                            font-weight: bold;
+                            font-size: calc(0.5vw + 0.5rem);
+                            margin-bottom: 20px;  
+                            margin-top: 20px;  
+                            transition: transform 0.2s ease;
+                        }
+                
+                        button:hover {
+                            transform: scale(1.05);
+                        }
+
+                        .first-address, .second-address {
+                            @include centering();
+                            align-items: flex-start;
+
+                                span {
+                                    font-size: calc(0.6vw + 0.5rem);
+                                    letter-spacing: 1px;
+                                    margin-bottom: 20px;
+                                }
+
+                                svg {
+                                    min-width: 20px;
+                                    min-height: 20px;
+                                    transform: translateY(-1px);
+                                    margin-right: 5px;
+                                    
+                                        path {
+                                            color: $light-blue;
+                                        }
+                                }
+                        }
+                }
+                .hours-section {
+                    @include centering();
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;    
+                    padding: 20px;
+                    grid-area: hours;
+                    background-color: white;
+                    
+
+                        h3 {
+                            margin-bottom: 20px;
+                        }
+
+                        p {
+                            font-size: calc(0.8vw + 0.5rem);
+                            letter-spacing: 1px;
+                            margin-bottom: 20px;
+                        }
+                }
+        }
+}
