@@ -711,6 +711,59 @@ main {
                 }
         }
 }
+footer {
+    position: sticky;
+    @include centering();
+    bottom: 0px;
+    width: 100%;
+    height: 70px;
+    background-color: white;
+    padding: 0px 100px;
+    display: none;
+    z-index: 30;
+    box-shadow: -2px -2px 5px 0px $shadow-color;
+
+        .item {
+            @include centering();
+            flex: 1;
+            min-height: 100%;
+            background-color: white;
+            cursor: pointer;
+
+                svg {
+                    min-width: 20px;
+                    min-height: 20px;
+                    max-width: 25px;
+                    max-height: 25px;
+                    fill: $light-blue;
+                    margin-right: 10px;
+                }
+
+                #docs {
+                    fill: none;
+                    stroke: $light-blue;
+                }
+
+                #pho {
+                    path {
+                        color: $light-blue;
+                    }
+                }
+
+                a {
+                    font-size: calc(0.7vw + 0.4rem);
+                    font-weight: bold;
+                    color: $light-blue;
+                    transition: transform 0.5s ease; 
+                    text-decoration: none;
+                }
+        }
+        .item:hover a {
+            transform: translateX(5px);
+            color: $dark-blue;
+        }
+}
+
 
 //media queries
 //1312 and more
@@ -756,6 +809,9 @@ main {
                 .hours-section {
                     grid-area: hours;
                 }    
+    }
+    footer {
+        display: flex;
     }
 }
 
@@ -825,5 +881,32 @@ main {
                         grid-area: hours;
                     }    
         }
+    }
+    footer {
+        display: flex;
+        padding: 25px;
+        
+
+            .item {
+                flex-direction: column;
+                justify-content: center;
+                background-color: white;
+                flex: 1;
+
+                svg {
+                    max-width: 10px;
+                    max-height: 10px;
+                    margin-bottom: 5px;
+                    margin-right: 0px;
+                }
+
+                a {
+                    text-align: center;
+                }
+            }
+
+            .item:hover a {
+                transform: none;
+            }
     }
 }
